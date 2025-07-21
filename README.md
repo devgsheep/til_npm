@@ -1,70 +1,128 @@
-# Getting Started with Create React App
+# 프로젝트 세팅
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- public/index.html 정리
+- package.json 정리
+- index.js 정리
+- App.js 정리
+- index.css 정리
+- App.css 제거
+- css 폴더 생성/layout.css 생성
+- npm 관련 제거(test 등등)
 
-## Available Scripts
+# 기본 ESLint, Prettier 설정
 
-In the project directory, you can run:
+## 1. ESLint
 
-### `npm start`
+```bash
+npm install eslint@latest -D
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+npm install eslint-config-react-app --save-dev --force
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 지금은 최신 버전 mjs로 진행함.
 
-### `npm test`
+```bash
+npx eslint --init
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 2. prettier
 
-### `npm run build`
+```bash
+npm i prettier -D
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- .prettierrc.json 파일 생성
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```json
+{
+  "singleQuote": false,
+  "semi": true,
+  "useTabs": false,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "arrowParens": "avoid",
+  "endOfLine": "auto"
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 3. ESLint 와 prettier 연결
 
-### `npm run eject`
+```bash
+npm i  eslint-config-prettier -D
+npm i  eslint-plugin-prettier -D
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `eslint.config.mjs` 설정 수정
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```mjs
+import js from "@eslint/js";
+import pluginReact from "eslint-plugin-react";
+import pluginPrettier from "eslint-plugin-prettier";
+import globals from "globals";
+import { defineConfig } from "eslint/config";
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+export default defineConfig([
+  {
+    files: ["**/*.{js,jsx}"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: globals.browser,
+    },
+    plugins: {
+      react: pluginReact,
+      prettier: pluginPrettier,
+    },
+    rules: {
+      ...pluginReact.configs.recommended.rules,
+      "prettier/prettier": "warn",
+      "no-var": "warn",
+      "no-unused-vars": "warn",
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+  },
+]);
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- VSCode의 settings.json에 내용 추가(`Ctrl + ,`)
 
-## Learn More
+```json
+  "eslint.useFlatConfig": true
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 4. 기본 npm 설치하기
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- emotion 설치
 
-### Code Splitting
+```bash
+npm i @emotion/react
+npm i @emotion/styled
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- scss 설치
 
-### Analyzing the Bundle Size
+```bash
+npm i sass
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- react-router-dom 설치
 
-### Making a Progressive Web App
+```bash
+npm i react-router-dom
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 5. react-router-dom 의 라우터 세팅
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- App.jsx에 작성 (Router > Routes > Route)
