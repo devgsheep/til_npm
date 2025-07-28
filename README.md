@@ -1,128 +1,174 @@
-# 프로젝트 세팅
+# 날짜를 다루는 라이브러리
 
-- public/index.html 정리
-- package.json 정리
-- index.js 정리
-- App.js 정리
-- index.css 정리
-- App.css 제거
-- css 폴더 생성/layout.css 생성
-- npm 관련 제거(test 등등)
+## 1. moment
 
-# 기본 ESLint, Prettier 설정
+- https://momentjs.com/
+- https://www.npmjs.com/package/moment
+- `npm i moment`
 
-## 1. ESLint
+### 1.1. 참조 사이트
 
-```bash
-npm install eslint@latest -D
-```
+- [참조](https://bolob.tistory.com/entry/JavaScript-Momentjs-%EC%82%AC%EC%9A%A9%EB%B2%95-%ED%98%84%EC%9E%AC-%EB%82%A0%EC%A7%9C-%EB%82%A0%EC%A7%9C-%ED%8F%AC%EB%A7%B7-%EB%82%A0%EC%A7%9C-%EB%B9%84%EA%B5%90)
 
-```bash
-npm install eslint-config-react-app --save-dev --force
-```
+### 1.2. 예제
 
-- 지금은 최신 버전 mjs로 진행함.
+```js
+import moment from "moment";
 
-```bash
-npx eslint --init
-```
-
-## 2. prettier
-
-```bash
-npm i prettier -D
-```
-
-- .prettierrc.json 파일 생성
-
-```json
-{
-  "singleQuote": false,
-  "semi": true,
-  "useTabs": false,
-  "tabWidth": 2,
-  "trailingComma": "all",
-  "printWidth": 80,
-  "arrowParens": "avoid",
-  "endOfLine": "auto"
-}
-```
-
-## 3. ESLint 와 prettier 연결
-
-```bash
-npm i  eslint-config-prettier -D
-npm i  eslint-plugin-prettier -D
-```
-
-- `eslint.config.mjs` 설정 수정
-
-```mjs
-import js from "@eslint/js";
-import pluginReact from "eslint-plugin-react";
-import pluginPrettier from "eslint-plugin-prettier";
-import globals from "globals";
-import { defineConfig } from "eslint/config";
-
-export default defineConfig([
+// 1. 서버에서 Response로 된 데이터
+const getData = [
   {
-    files: ["**/*.{js,jsx}"],
-    languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-      globals: globals.browser,
-    },
-    plugins: {
-      react: pluginReact,
-      prettier: pluginPrettier,
-    },
-    rules: {
-      ...pluginReact.configs.recommended.rules,
-      "prettier/prettier": "warn",
-      "no-var": "warn",
-      "no-unused-vars": "warn",
-    },
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
+    id: 1,
+    title: "swaggr 완료",
+    createAt: "2024-12-13T10:00:00Z",
   },
-]);
+  {
+    id: 2,
+    title: "react 완료",
+    createAt: "2024-12-18T10:00:00Z",
+  },
+];
+function App() {
+  // js 자리
+  const today = moment().format("YYYY-MM-DD");
+  // console.log(today);
+  const startDay = moment("2025-07-01");
+  const endDay = moment("2025-07-28");
+  // jsx 자리
+  return (
+    <div>
+      <h1>Moment 라이브러리</h1>
+      <div>
+        <p>오늘은 {today} 입니다.</p>
+      </div>
+      <div>
+        <h2>백엔드 데이터 날짜 출력</h2>
+        {getData.map(item => {
+          return (
+            <p key={item.id}>
+              아이디: {item.id} / 제목: {item.title} <br /> 등록된 날짜:
+              {moment(item.createAt).format("YYYY-MM-DD")}
+              <br />
+              등록된 날짜로 부터 5일 후:
+              {moment(item.createAt).add(5, "days").format("YYYY-MM-DD")}
+            </p>
+          );
+        })}
+      </div>
+      <div>
+        <h2>시간이 얼마나 지났는지 출력</h2>
+        {getData.map(item => {
+          return (
+            <p key={item.id}>
+              아이디: {item.id} / 제목: {item.title}
+              <br />
+              날짜: {moment(item.createAt).format("YYYY-MM-DD")}
+              <br />
+              지나간 날짜: {moment(item.createAt).fromNow()}
+            </p>
+          );
+        })}
+      </div>
+      <div>
+        <h2>현재로 부터 3시간 후</h2>
+        <div>{moment().add(3, "hour").format("HH:mm:ss")}</div>
+      </div>
+      <div>
+        <h2>시간 차이 계산</h2>
+        <div>날짜 차이 : {endDay.diff(startDay, "day")}</div>
+        <div>주간 차이 : {endDay.diff(startDay, "weeks")}</div>
+      </div>
+      <div>
+        <h2>날짜 비교</h2>
+        <div>
+          오늘은 2025-08-01 전인가?
+          {moment("2025-07-28").isBefore("2025-08-01")
+            ? "네 맞습니다."
+            : "지났습니다."}
+        </div>
+        <div>
+          오늘은 2025-07-01 지나갔는지?
+          {moment("2025-07-28").isAfter("2025-07-01")
+            ? "네 맞습니다. 지났습니다."
+            : "아닙니다. 안지났습니다."}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
 ```
 
-- VSCode의 settings.json에 내용 추가(`Ctrl + ,`)
+## 2. Dayjs
 
-```json
-  "eslint.useFlatConfig": true
+- https://day.js.org/
+- https://www.npmjs.com/package/dayjs
+- `npm i dayjs`
+
+### 2.1. 참조
+
+- [참조](https://velog.io/@hongsoom/Library-day.js-%EB%82%A0%EC%A7%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)
+
+### 2.2. 응용 예제
+
+```js
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+
+// 서버에서 Response 된 데이터
+const getData = [
+  {
+    id: 1,
+    title: "swaggr 완료",
+    createAt: "2024-12-13T10:00:00Z",
+  },
+  {
+    id: 2,
+    title: "react 완료",
+    createAt: "2024-12-18T10:00:00Z",
+  },
+];
+
+function App() {
+  // 오늘의 날짜
+  const todayDayjs = dayjs().format("YYYY-MM-DD");
+  return (
+    <div>
+      <h1>Dayjs 활용 날짜관련</h1>
+      <div>
+        <p>오늘은 {todayDayjs}</p>
+        {getData.map(item => {
+          return (
+            <p key={item.id}>
+              아이디 : {item.id} 제목 : {item.title} 날짜 :{" "}
+              {dayjs(item.createAt).format("YYYY-MM-DD")}
+            </p>
+          );
+        })}
+
+        <h2>Dayjs 를 활용한 5일 뒤 날짜 계산하기 </h2>
+        {getData.map(item => {
+          return (
+            <p key={item.id}>
+              아이디 : {item.id} 제목 : {item.title} 5일 뒤의 날짜 :{" "}
+              {dayjs(item.createAt).add(5, "day").format("YYYY-MM-DD")}
+            </p>
+          );
+        })}
+        <h3>moment 를 활용한 시간이 얼마나 지났는지? </h3>
+        {getData.map(item => {
+          return (
+            <p key={item.id}>
+              아이디 : {item.id} 제목 : {item.title} 얼마나 지났는지 :{" "}
+              {dayjs(item.createAt).fromNow()}
+            </p>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+export default App;
 ```
-
-## 4. 기본 npm 설치하기
-
-- emotion 설치
-
-```bash
-npm i @emotion/react
-npm i @emotion/styled
-```
-
-- scss 설치
-
-```bash
-npm i sass
-```
-
-- react-router-dom 설치
-
-```bash
-npm i react-router-dom
-```
-
-## 5. react-router-dom 의 라우터 세팅
-
-- App.jsx에 작성 (Router > Routes > Route)
