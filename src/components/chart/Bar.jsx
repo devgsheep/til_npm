@@ -8,7 +8,7 @@ function Bar() {
 
   // 화면보일때 셋팅
   useEffect(() => {
-    setData(...barData);
+    setData(barData);
   }, []);
   // jsx 자리
   return (
@@ -17,8 +17,8 @@ function Bar() {
       <div style={{ width: "100%", height: 600 }}>
         <ResponsiveBar /* or Bar for fixed dimensions */
           data={data}
-          keys={["burger", "sandwich", "kebab", "fries", "donut"]}
-          indexBy="country"
+          keys={["point"]}
+          indexBy="date"
           labelSkipWidth={12}
           labelSkipHeight={12}
           legends={[

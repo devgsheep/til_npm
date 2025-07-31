@@ -1,54 +1,54 @@
 export const lineData = [
   {
-    id: "food",
+    id: "norway",
     data: [
       {
-        x: "hambuger",
-        y: 123,
+        x: "햄버거",
+        y: 5,
       },
       {
-        x: "chicken",
-        y: 136,
+        x: "치킨",
+        y: 78,
       },
       {
-        x: "pizza",
-        y: 257,
+        x: "boat",
+        y: 276,
       },
       {
-        x: "pasta",
-        y: 122,
+        x: "train",
+        y: 55,
       },
       {
-        x: "sandwich",
-        y: 199,
+        x: "subway",
+        y: 144,
       },
       {
-        x: "bread",
-        y: 170,
+        x: "bus",
+        y: 216,
       },
       {
-        x: "soup",
-        y: 205,
+        x: "car",
+        y: 253,
       },
       {
-        x: "cake",
-        y: 297,
+        x: "moto",
+        y: 102,
       },
       {
-        x: "cookie",
-        y: 118,
+        x: "bicycle",
+        y: 156,
       },
       {
-        x: "rice",
-        y: 127,
+        x: "horse",
+        y: 131,
       },
       {
-        x: "meat",
-        y: 32,
+        x: "skateboard",
+        y: 147,
       },
       {
         x: "others",
-        y: 264,
+        y: 232,
       },
     ],
   },

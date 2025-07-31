@@ -6,11 +6,11 @@ function Line() {
   // js 자리
   const [data, setData] = useState([]);
   // 데이터 부르는 함수 만들기
-  const getData = () => {
+  const getData = async () => {
     try {
-      // fetch를 이용한 데이터 호출
-      const res = localStorage.getItem("line_data");
-      const json = JSON.parse(res);
+      // fetch 를 이용한 데이터 호출
+      const res = await fetch("/line_data.json");
+      const json = await res.json();
       // 데이터 갱신
       setData(json);
     } catch (error) {
@@ -21,33 +21,34 @@ function Line() {
   const saveData = () => {
     const tempData = [
       {
-        id: "food",
+        id: "point1",
         data: [
-          { x: "hambuger", y: 123 }, //  { x: "hambuger", y: 123, date: "2025-07-21" } 날짜별
-          { x: "chicken", y: 136 },
-          { x: "pizza", y: 257 },
-          { x: "피자", y: 122 },
-          { x: "sandwich", y: 199 },
-          { x: "bread", y: 170 },
-          { x: "soup", y: 205 },
-          { x: "cake", y: 297 },
-          { x: "cookie", y: 118 },
-          { x: "rice", y: 127 },
-          { x: "meat", y: 32 },
-          { x: "others", y: 264 },
+          { x: "좋음", y: 5 },
+          { x: "치킨", y: 78 },
+          { x: "boat", y: 276 },
+          { x: "train", y: 55 },
+          { x: "subway", y: 144 },
+          { x: "bus", y: 216 },
+          { x: "car", y: 253 },
+          { x: "moto", y: 102 },
+          { x: "bicycle", y: 156 },
+          { x: "horse", y: 131 },
+          { x: "skateboard", y: 147 },
+          { x: "others", y: 232 },
         ],
       },
     ];
     const jsData = JSON.stringify(tempData);
     localStorage.setItem("line_data", jsData);
   };
+
   useEffect(() => {
     getData();
   }, []);
   // jsx 자리
   return (
     <div>
-      <h1>Line Chart 예제</h1>
+      <h1>Line 차트 예제</h1>
       <button onClick={saveData}>localstorage 저장하기</button>
       <div style={{ width: "100%", height: 600 }}>
         <ResponsiveLine /* or Line for fixed dimensions */
@@ -80,7 +81,6 @@ function Line() {
             },
           ]}
         />
-        )
       </div>
     </div>
   );

@@ -1,60 +1,18 @@
 export const barData = [
-  [
-    {
-      country: "AD",
-      burger: 55,
-      sandwich: 17,
-      kebab: 159,
-      fries: 197,
-      donut: 33,
-    },
-    {
-      country: "AE",
-      burger: 69,
-      sandwich: 104,
-      kebab: 150,
-      fries: 130,
-      donut: 126,
-    },
-    {
-      country: "AF",
-      burger: 145,
-      sandwich: 126,
-      kebab: 19,
-      fries: 16,
-      donut: 96,
-    },
-    {
-      country: "AG",
-      burger: 131,
-      sandwich: 69,
-      kebab: 198,
-      fries: 132,
-      donut: 136,
-    },
-    {
-      country: "AI",
-      burger: 3,
-      sandwich: 62,
-      kebab: 140,
-      fries: 98,
-      donut: 64,
-    },
-    {
-      country: "AL",
-      burger: 102,
-      sandwich: 147,
-      kebab: 107,
-      fries: 62,
-      donut: 140,
-    },
-    {
-      country: "AM",
-      burger: 27,
-      sandwich: 187,
-      kebab: 26,
-      fries: 165,
-      donut: 9,
-    },
-  ],
+  {
+    date: "2025-07-07",
+    point: 62,
+  },
+  {
+    date: "2025-07-08",
+    point: 32,
+  },
+  {
+    date: "2025-07-09",
+    point: 72,
+  },
+  {
+    date: "2025-07-10",
+    point: 22,
+  },
 ];
