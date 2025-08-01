@@ -22,8 +22,8 @@ const After = () => {
     setUserInfo({
       id: info.id,
       nickname: info.kakao_account.profile.nickname,
-      thumbnail_image_url: info?.kakao_account.profile.thumbnail_image_url,
-      email: info?.kakao_account.email,
+      thumbnail_image_url: info.kakao_account.profile.thumbnail_image_url,
+      email: info.kakao_account.email,
     });
   };
 
@@ -38,14 +38,13 @@ const After = () => {
     }
   }, []);
   return (
-    // {userInfo.id ? () :}
     <div>
       <h1>KKO 로그인 후 </h1>
       <h2>{authCode}</h2>
-      <div>닉네임 : {userInfo?.nickname}</div>
-      <div>이메일 : {userInfo?.email}</div>
+      <div>닉네임 : {userInfo.nickname}</div>
+      <div>이메일 : {userInfo.email}</div>
       <div>
-        <img src={userInfo?.thumbnail_image_url} />
+        <img src={userInfo.thumbnail_image_url} />
       </div>
     </div>
   );
