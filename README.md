@@ -292,4 +292,4 @@ const patchPhoto = async (id, {}) => {
   }
 };
 export { getPhotos, getPhoto, postPhoto, deletePhoto, putPhoto, patchPhoto };
-```
+``` 
