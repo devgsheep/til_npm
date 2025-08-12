@@ -1,17 +1,3 @@
-# Framer Motion
-
-- https://motion.dev/docs/react
-- https://examples.motion.dev/react
-- 참조 자료 : https://velog.io/@keumky1/Framer-Motion-입문하기
-- 참조 자료 : https://nykim.work/114
-- `npm install motion`
-- `npm i framer-motion`
-
-## 폴더 및 파일 구조
-
-- /src/pages/Framer.jsx
-
-```jsx
 import { motion } from "framer-motion";
 
 function Framer() {
@@ -46,12 +32,13 @@ function Framer() {
       </motion.div>
       <motion.div
         drag={true}
-        dragConstraints={{ top: -50, bottom: 50, left: -50, right: 50 }}
+        dragConstratints={{ top: -50, bottom: 50, left: -50, right: 50 }}
         style={{
           width: 100,
           height: 100,
           backgroundColor: "hotpink",
           margin: "10px auto",
+          textAlign: "center",
         }}
       >
         드래그
@@ -61,4 +48,3 @@ function Framer() {
 }
 
 export default Framer;
-```
